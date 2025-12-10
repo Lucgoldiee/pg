@@ -1,18 +1,23 @@
-
 def bin_to_dec(binarni_cislo):
-    # Funkce přijme binární číslo jako int nebo str a vrátí jeho decimální hodnotu.
-    # 111 -> 7
-    # "101" -> 5
+    """
+    Funkce spočítá hodnotu předávaného binárního čísla.
+    binarni_cislo může být str i int.
 
-    # převedeme vstup na string (protože může přijít i jako int)
-    bin_str = str(binarni_cislo)
+    Příklady:
+    111 -> 7
+    "101" -> 5
+    """
+    # Převedeme vstup na řetězec (abychom uměli pracovat s int i str)
+    s = str(binarni_cislo).strip()
 
-    # ověření, že vstup obsahuje jen 0 a 1
-    if not all(c in "01" for c in bin_str):
-        raise ValueError("Vstup není platné binární číslo.")
+    vysledek = 0
+    for znak in s:
+        if znak not in ("0", "1"):
+            raise ValueError("Vstup musí být binární číslo složené jen z 0 a 1.")
+        # posuneme dosavadní číslo doleva (vynásobíme 2) a přičteme aktuální bit
+        vysledek = vysledek * 2 + int(znak)
 
-    # vlastní převod pomocí int() s base=2
-    return int(bin_str, 2)
+    return vysledek
 
 
 def test_bin_to_dec():
@@ -23,9 +28,13 @@ def test_bin_to_dec():
     assert bin_to_dec("010101") == 21
     assert bin_to_dec(10000000) == 128
 
-    # Príklad z úkolu:
-    assert bin_to_dec("10011101") == 167
 
-    print("Všechny testy úspěšně proběhly!")
+if __name__ == "__main__":
+    # Spuštění jednoduchého testu při přímém spuštění souboru
+    test_bin_to_dec()
+    print("Všechny testy proběhly v pořádku.")
+    # ukázkový výpočet (můžeš si libovolně změnit)
+    print("10011101 v desítkové soustavě je:", bin_to_dec("10011101"))
+
 
 
